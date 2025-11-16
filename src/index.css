@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased font-sans;
+}
+
+.gradient-bg {
+  background: radial-gradient(circle at top left, rgba(148, 27, 255, 0.5), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(88, 28, 135, 0.5), transparent 55%);
+}
+
+.glass-panel {
+  @apply bg-slate-900/70 backdrop-blur border border-slate-800/80 shadow-xl;
+}
+
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 10s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
+}
+
+
