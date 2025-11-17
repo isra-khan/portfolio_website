@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const sections = [
   { id: "hero", label: "About" },
@@ -10,12 +10,52 @@ const sections = [
 ];
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // const [formStatus, setFormStatus] = useState({ loading: false, success: false, error: false });
+
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setIsMobileMenuOpen(false); // Close mobile menu after clicking
   };
+
+  // Form submission handler - commented out for now
+  // To enable: uncomment this function and the formStatus state above,
+  // then update the form's onSubmit handler and replace 'YOUR_FORM_ID' with your Formspree form ID
+  /*
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus({ loading: true, success: false, error: false });
+
+    const formData = new FormData(e.target);
+    
+    try {
+      // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+      // Get it from https://formspree.io after signing up (free)
+      const response = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setFormStatus({ loading: false, success: true, error: false });
+        e.target.reset();
+        setTimeout(() => {
+          setFormStatus({ loading: false, success: false, error: false });
+        }, 5000);
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      setFormStatus({ loading: false, success: false, error: true });
+    }
+  };
+  */
 
   return (
     <div className="min-h-screen gradient-bg">
@@ -38,12 +78,62 @@ function App() {
               </button>
             ))}
           </nav>
-          <button
-            onClick={() => scrollTo("contact")}
-            className="rounded-full bg-primary-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg shadow-primary-500/40 transition hover:bg-primary-400"
-          >
-            Hire Me
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => scrollTo("contact")}
+              className="hidden rounded-full bg-primary-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg shadow-primary-500/40 transition hover:bg-primary-400 sm:block"
+            >
+              Hire Me
+            </button>
+            {/* Hamburger button for mobile */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex flex-col gap-1.5 p-2 text-slate-300 transition hover:text-primary-300 md:hidden"
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`block h-0.5 w-6 bg-current transition-all ${
+                  isMobileMenuOpen ? "translate-y-2 rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-current transition-all ${
+                  isMobileMenuOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-current transition-all ${
+                  isMobileMenuOpen ? "-translate-y-2 -rotate-45" : ""
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+        {/* Mobile menu */}
+        <div
+          className={`absolute left-0 right-0 top-full z-20 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur transition-all duration-300 md:hidden ${
+            isMobileMenuOpen
+              ? "max-h-96 opacity-100"
+              : "max-h-0 overflow-hidden opacity-0"
+          }`}
+        >
+          <nav className="mx-auto max-w-6xl flex flex-col px-4 py-4">
+            {sections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => scrollTo(s.id)}
+                className="py-3 text-left text-sm text-slate-300 transition hover:text-primary-300"
+              >
+                {s.label}
+              </button>
+            ))}
+            <button
+              onClick={() => scrollTo("contact")}
+              className="mt-2 rounded-full bg-primary-500 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-primary-500/40 transition hover:bg-primary-400"
+            >
+              Hire Me
+            </button>
+          </nav>
         </div>
       </header>
 
@@ -89,7 +179,7 @@ function App() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0,_rgba(148,27,255,0.24),transparent_60%),radial-gradient(circle_at_80%_100%,rgba(15,23,42,0.9),transparent_55%)]" />
             <div className="relative space-y-4">
               <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
-                Snapshot
+                Flutter Developer
               </p>
               <h2 className="text-lg font-semibold text-slate-50">Flutter-first Developer</h2>
               <ul className="space-y-2 text-xs text-slate-300">
@@ -138,26 +228,17 @@ function App() {
                 details right so that users don&apos;t have to think about the tech—it just works.
               </p>
               <p>
-                My experience ranges from hotel operations software to event and task-based apps,
-                with a strong focus on offline-first design and reliable data sync. I&apos;m
-                comfortable working across the full lifecycle—from idea and UX flows to deployment
-                and iteration.
+              My work spans multiple domains, including social media apps, event promotion platforms, 
+              personal finance trackers, and desktop hospitality applications.
+                
               </p>
               <p>
-                I&apos;m always learning, experimenting, and refining how I work with Flutter,
-                Firebase, and supporting tools to ship better apps faster.
+                I love exploring new technologies and continuously learning. 
+                I’ve also volunteered extensively at tech events, supporting 
+                communities and helping aspiring developers grow. 
+                Outside of tech, I enjoy UI/UX design, writing, gaming, and reading.
               </p>
-              <div className="space-y-4 text-sm text-slate-300">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-                  Quick Facts
-                </h3>
-                <ul className="space-y-2">
-                  <li>• Based in Pakistan · open to remote opportunities.</li>
-                  <li>• Strong focus on Flutter and the surrounding ecosystem.</li>
-                  <li>• Comfortable with Firebase, local storage, and integrations.</li>
-                  <li>• Enjoy working closely with product and design.</li>
-                </ul>
-              </div>
+             
             </div>
           </div>
         </section>
@@ -169,7 +250,7 @@ function App() {
             I like to learn new tools quickly, then prove that knowledge by building real things.
             Flutter is my main focus, supported by a web, backend, and Firebase toolkit.
           </p>
-          <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <SkillCard
               title="Languages"
               items={["Dart", "Python", "Java"]}
@@ -195,12 +276,13 @@ function App() {
             A few Flutter projects that capture how I think about real-world constraints, offline
             behavior, and user experience.
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ProjectCard
               category="Product"
               title="Hotel Operations Desktop App"
               subtitle="Desktop app for hotel operations used across multiple client sites."
               tags={["App", "Desktop", "Flutter"]}
+              link="https://www.emetrotel.com/software-downloads/"
             />
             <ProjectCard
               category="Product"
@@ -228,25 +310,41 @@ function App() {
           <div className="mt-6 space-y-4">
             <ExperienceCard
               role="Flutter Developer"
-              company="emetrotel"
-              location="Remote / Pakistan"
-              period="Dates to be added"
+              company="Emetrotel"
+              location="Remote | USA"
+              period="Mar 2023 – May 2025"
               description="Worked on production-grade Flutter applications used by hotel clients, focusing on performance, reliability, and integrations."
               bullets={[
-                "Developed and maintained a Flutter desktop application for hotel operations.",
-                "Implemented offline-first workflows backed by local storage.",
-                "Integrated Firebase and UCX server for real-time room status and data sync.",
+                "Developed Flutter desktop application for hotel operations used across multiple client sites.",
+                "Implemented offline functionality using local storage for uninterrupted performance.",
+                "Integrated Firebase for cloud synchronization and UCX server for real-time room status updates.",
               ]}
             />
             <ExperienceCard
-              role="Flutter Projects"
-              company="Personal / Freelance"
-              location="Remote"
-              period="Ongoing"
-              description="Building apps like the Gig App and Cage to explore new product ideas and deepen my Flutter expertise."
+              role="Flutter Developer"
+              company="Enterprise64"
+              location="Onsite | Pakistan"
+              period="Mar 2023 – Mar 2024"
+              description="Developed multiple Flutter applications including HR management systems, task tracking apps, and event platforms."
               bullets={[
-                "Designed and shipped task and earnings tracking flows.",
-                "Experimented with onboarding, dashboards, and event workflows in Flutter.",
+                "Developed an internal HR Management System in Flutter with an intuitive UI.",
+                "Developed Gig, a mobile app for managing tasks and tracking payments.",
+                "Built Cage, a mobile platform for fighting events and promoters, enabling event management and participant coordination.",
+              ]}
+            />
+            <ExperienceCard
+              role="Trainee"
+              company="TPS"
+              location="Hybrid | PK"
+              period="Mar 2022 – Sep 2022"
+              description="Completed Flutter onboarding and training, gaining hands-on experience in mobile app development while contributing to live projects."
+              bullets={[
+                "Completed Flutter onboarding and training, gaining hands-on experience in mobile app development.",
+                "Contributed to development and live projects such as AL-NILE, implementing new features and resolving bugs.",
+                "Improved app architecture by integrating GetX for efficient state management in existing Flutter apps.",
+                "Utilized standard libraries and REST APIs to ensure scalability and maintainability.",
+                "Maintained industry-standard code quality through code reviews, clean architecture, and reusable components.",
+                "Collaborated with team members to test, debug, and optimize applications for production readiness.",
               ]}
             />
           </div>
@@ -255,17 +353,26 @@ function App() {
         {/* Education */}
         <section id="education" className="mb-16 animate-fade-in-up">
           <SectionHeader title="Education & Certifications" eyebrow="How I learned" />
-          <div className="mt-6 glass-panel rounded-3xl p-6 text-sm text-slate-300">
-            <p className="text-slate-200">
-              I&apos;ll add formal education and certifications here. For now, this section
-              highlights that I&apos;m continuously learning and growing my Flutter skills through
-              real-world projects, documentation, and community resources.
-            </p>
+          <div className="mt-6 space-y-4">
+            <div className="glass-panel rounded-3xl p-6 text-sm text-slate-300">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-50">Bachelor of Computer Science</h3>
+                  <p className="text-xs text-slate-400">
+                    University of Sindh
+                  </p>
+                </div>
+                <p className="text-xs text-slate-500">2017 – 2021</p>
+              </div>
+              <p className="mt-2 text-xs text-slate-400">
+                CGPA: 3.3 / 4.0
+              </p>
+            </div>
           </div>
         </section>
 
         {/* Community-style section inspired by mhmz.dev */}
-        <section id="community" className="mb-16 animate-fade-in-up">
+        {/* <section id="community" className="mb-16 animate-fade-in-up">
           <SectionHeader title="Community & Collaboration" eyebrow="Let&apos;s go further together" />
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <TestimonialCard
@@ -274,12 +381,12 @@ function App() {
               role="Add a real testimonial here later"
             />
             <TestimonialCard
-              quote="She takes ownership of Flutter work, cares about edge cases, and iterates quickly. I’d happily work with her again on mobile or desktop projects."
+              quote="She takes ownership of Flutter work, cares about edge cases, and iterates quickly. I'd happily work with her again on mobile or desktop projects."
               name="Future Collaborator"
               role="Add a real testimonial here later"
             />
           </div>
-        </section>
+        </section> */}
 
         {/* Blog */}
         <section id="blog" className="mb-16 animate-fade-in-up">
@@ -296,13 +403,14 @@ function App() {
         {/* Contact */}
         <section id="contact" className="mb-10 animate-fade-in-up">
           <SectionHeader title="Let’s Build Something" eyebrow="Contact" />
-          <div className="mt-6 grid gap-8 md:grid-cols-[1.1fr,1fr]">
+          <div className="mt-6">
+            {/* Contact form - commented out for now
             <div className="glass-panel rounded-3xl p-6">
               <form
                 className="space-y-4 text-sm"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  alert("This form is a front-end demo. Connect it to a backend or email service.");
+                  alert("This form is a demo. Connect it to a backend or email service (e.g., Formspree).");
                 }}
               >
                 <div className="grid gap-4 md:grid-cols-2">
@@ -310,6 +418,7 @@ function App() {
                     <input
                       required
                       type="text"
+                      name="name"
                       className="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-primary-500/40 placeholder:text-slate-500 focus:border-primary-400 focus:ring-2"
                       placeholder="Your name"
                     />
@@ -318,6 +427,7 @@ function App() {
                     <input
                       required
                       type="email"
+                      name="email"
                       className="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-primary-500/40 placeholder:text-slate-500 focus:border-primary-400 focus:ring-2"
                       placeholder="you@example.com"
                     />
@@ -326,6 +436,7 @@ function App() {
                 <Field label="What can I help you with?">
                   <textarea
                     required
+                    name="message"
                     rows={4}
                     className="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-primary-500/40 placeholder:text-slate-500 focus:border-primary-400 focus:ring-2"
                     placeholder="Project idea, Flutter help, collaboration, etc."
@@ -339,6 +450,7 @@ function App() {
                 </button>
               </form>
             </div>
+            */}
             <div className="space-y-4 text-sm text-slate-300">
               <div className="glass-panel rounded-3xl p-5">
                 <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
@@ -357,10 +469,10 @@ function App() {
                   <p>
                     <span className="text-slate-400">Phone:</span>{" "}
                     <a
-                      href="tel:+92362658490"
+                      href="tel:+923423305814"
                       className="text-primary-300 hover:text-primary-200"
                     >
-                      +92 362 658490
+                      +92 342 3305814
                     </a>
                   </p>
                 </div>
@@ -371,7 +483,7 @@ function App() {
                 </h3>
                 <div className="mt-3 flex flex-wrap gap-3 text-xs">
                   <a
-                    href="https://israkhan.ik1"
+                    href="https://github.com/isra-khan/isra-khan"
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-primary-400 hover:text-primary-200"
@@ -379,16 +491,21 @@ function App() {
                     GitHub
                   </a>
                   <a
-                    href="https://israkhan.ik2"
+                    href="https://www.linkedin.com/in/isra-khan1/"
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-primary-400 hover:text-primary-200"
                   >
                     LinkedIn
                   </a>
-                  <button className="rounded-full border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-primary-400 hover:text-primary-200">
-                    Download Resume (add file)
-                  </button>
+                  <a
+                    href="https://docs.google.com/document/d/1lWz6VZQnIR2Yq23M01_0AUgMEvz_R3hPpABEDjQLeJ4/edit?usp=share_link"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-primary-400 hover:text-primary-200"
+                  >
+                    Download Resume
+                  </a>
                 </div>
               </div>
               <p className="text-xs text-slate-500">
@@ -401,9 +518,8 @@ function App() {
       </main>
 
       <footer className="border-t border-slate-800/80 bg-slate-950/90">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-slate-500 md:flex-row">
+        <div className="mx-auto max-w-6xl px-4 py-5 text-center text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Isra Khan. All rights reserved.</p>
-          <p>Built with React, Tailwind CSS, and a dark purple aesthetic.</p>
         </div>
       </footer>
     </div>
@@ -435,9 +551,9 @@ function SkillCard({ title, items, highlight }) {
   );
 }
 
-function ProjectCard({ category, title, subtitle, tags }) {
-  return (
-    <div className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-1">
+function ProjectCard({ category, title, subtitle, tags, link }) {
+  const cardContent = (
+    <>
       <div className="flex items-center justify-between px-4 pt-3">
         <span className="rounded-full bg-primary-500/10 px-3 py-1 text-[11px] font-medium text-primary-300 ring-1 ring-primary-500/40">
           {category}
@@ -464,6 +580,25 @@ function ProjectCard({ category, title, subtitle, tags }) {
           ))}
         </div>
       </div>
+    </>
+  );
+
+  if (link) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noreferrer"
+        className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <div className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-1">
+      {cardContent}
     </div>
   );
 }
