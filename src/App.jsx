@@ -1,6 +1,650 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
+// Animated Sea Green Laptop
+const SeaGreenLaptop = () => {
+  return (
+    <motion.div
+      className="relative hidden lg:block pointer-events-none"
+      initial={{ opacity: 0, x: 100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <svg
+        width="240"
+        height="180"
+        viewBox="0 0 240 180"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Laptop base */}
+        <motion.g
+          animate={{
+            y: [0, -5, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {/* Laptop screen */}
+          <motion.rect
+            x="40"
+            y="10"
+            width="160"
+            height="100"
+            rx="4"
+            fill="#20B2AA"
+            fillOpacity="0.8"
+            stroke="#2E8B57"
+            strokeWidth="3"
+            animate={{
+              scale: [1, 1.02, 1],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          {/* Screen bezel */}
+          <rect
+            x="35"
+            y="5"
+            width="170"
+            height="110"
+            rx="6"
+            fill="none"
+            stroke="#2E8B57"
+            strokeWidth="4"
+          />
+          {/* Screen content */}
+          <rect
+            x="50"
+            y="25"
+            width="140"
+            height="70"
+            rx="2"
+            fill="white"
+            fillOpacity="0.95"
+          />
+          {/* Code on screen */}
+          <motion.text
+            x="60"
+            y="45"
+            fontSize="10"
+            fill="#2E8B57"
+            fontFamily="monospace"
+            fontWeight="600"
+            animate={{
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            flutter run
+          </motion.text>
+          <motion.text
+            x="60"
+            y="60"
+            fontSize="10"
+            fill="#20B2AA"
+            fontFamily="monospace"
+            animate={{
+              opacity: [0.5, 0.9, 0.5],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
+          >
+            {"{"}
+          </motion.text>
+          <motion.text
+            x="60"
+            y="75"
+            fontSize="10"
+            fill="#2E8B57"
+            fontFamily="monospace"
+            animate={{
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          >
+            return App();
+          </motion.text>
+          <motion.text
+            x="60"
+            y="90"
+            fontSize="10"
+            fill="#20B2AA"
+            fontFamily="monospace"
+            animate={{
+              opacity: [0.5, 0.9, 0.5],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1.5,
+            }}
+          >
+            {"}"}
+          </motion.text>
+          
+          {/* Laptop base/keyboard */}
+          <rect
+            x="30"
+            y="110"
+            width="180"
+            height="60"
+            rx="6"
+            fill="#2E8B57"
+            fillOpacity="0.7"
+            stroke="#20B2AA"
+            strokeWidth="3"
+          />
+          {/* Keyboard keys */}
+          <g opacity="0.6">
+            <rect x="45" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="60" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="75" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="90" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="105" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="120" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="135" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="150" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="165" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="180" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+            <rect x="195" y="125" width="12" height="8" rx="1" fill="#20B2AA" />
+          </g>
+          {/* Trackpad */}
+          <rect
+            x="80"
+            y="145"
+            width="80"
+            height="15"
+            rx="2"
+            fill="#20B2AA"
+            fillOpacity="0.5"
+            stroke="#2E8B57"
+            strokeWidth="1.5"
+          />
+          
+          {/* Hinge */}
+          <rect
+            x="35"
+            y="108"
+            width="170"
+            height="4"
+            fill="#2E8B57"
+            fillOpacity="0.8"
+          />
+        </motion.g>
+        
+        {/* Floating code elements */}
+        <motion.g
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <text
+            x="20"
+            y="60"
+            fontSize="14"
+            fill="#20B2AA"
+            fillOpacity="0.4"
+            fontFamily="monospace"
+            fontWeight="bold"
+          >
+            {"{"}
+          </text>
+          <text
+            x="200"
+            y="140"
+            fontSize="14"
+            fill="#2E8B57"
+            fillOpacity="0.4"
+            fontFamily="monospace"
+            fontWeight="bold"
+          >
+            {"}"}
+          </text>
+        </motion.g>
+        
+        {/* Sparkles */}
+        <motion.circle
+          cx="25"
+          cy="90"
+          r="3"
+          fill="#20B2AA"
+          fillOpacity="0.6"
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.6, 1, 0.6],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.circle
+          cx="215"
+          cy="50"
+          r="2.5"
+          fill="#2E8B57"
+          fillOpacity="0.6"
+          animate={{
+            scale: [1, 1.6, 1],
+            opacity: [0.6, 1, 0.6],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+      </svg>
+    </motion.div>
+  );
+};
+
+// Animated Mobile Device Component for Header
+const AnimatedMobileHeader = () => {
+  return (
+    <motion.div
+      className="hidden md:flex items-center gap-2 ml-2"
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
+      <motion.div
+        className="relative"
+        animate={{
+          y: [0, -8, 0],
+          rotate: [0, 5, -5, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <svg
+          width="32"
+          height="48"
+          viewBox="0 0 32 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-primary-500"
+        >
+          {/* Phone body */}
+          <rect
+            x="4"
+            y="2"
+            width="24"
+            height="44"
+            rx="4"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+          />
+          {/* Screen */}
+          <rect
+            x="6"
+            y="6"
+            width="20"
+            height="32"
+            rx="2"
+            fill="currentColor"
+            fillOpacity="0.1"
+          />
+          {/* Home indicator */}
+          <rect
+            x="12"
+            y="42"
+            width="8"
+            height="2"
+            rx="1"
+            fill="currentColor"
+            fillOpacity="0.6"
+          />
+          {/* App icons on screen */}
+          <motion.circle
+            cx="11"
+            cy="15"
+            r="2.5"
+            fill="currentColor"
+            fillOpacity="0.4"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.7, 0.4],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
+          />
+          <motion.circle
+            cx="21"
+            cy="15"
+            r="2.5"
+            fill="currentColor"
+            fillOpacity="0.4"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.7, 0.4],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+          <motion.circle
+            cx="11"
+            cy="25"
+            r="2.5"
+            fill="currentColor"
+            fillOpacity="0.4"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.7, 0.4],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1.5,
+            }}
+          />
+          <motion.circle
+            cx="21"
+            cy="25"
+            r="2.5"
+            fill="currentColor"
+            fillOpacity="0.4"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.7, 0.4],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+        </svg>
+      </motion.div>
+      {/* Floating particles around mobile */}
+      <motion.div
+        className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary-400/60"
+        animate={{
+          y: [0, -10, 0],
+          opacity: [0.6, 1, 0.6],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full bg-primary-300/60"
+        animate={{
+          y: [0, 8, 0],
+          opacity: [0.5, 0.9, 0.5],
+          scale: [1, 1.4, 1],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+    </motion.div>
+  );
+};
+
+// Scroll-triggered Decorative Elements Component
+const SectionDecorations = ({ position = "right" }) => {
+  return (
+    <div className={`absolute ${position === "right" ? "right-0 top-0" : "left-0 top-0"} w-1/3 h-full pointer-events-none overflow-hidden opacity-15 z-0`}>
+      {/* Large blur circles */}
+      <motion.div
+        className="absolute w-72 h-72 rounded-full bg-primary-200/25 blur-3xl"
+        initial={{ scale: 0, opacity: 0, x: position === "right" ? 150 : -150 }}
+        whileInView={{ 
+          scale: [1, 1.4, 1],
+          opacity: [0.2, 0.5, 0.2],
+          x: position === "right" ? [150, 80, 150] : [-150, -80, -150],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{
+          top: "15%",
+          [position === "right" ? "right" : "left"]: "5%",
+        }}
+      />
+      <motion.div
+        className="absolute w-56 h-56 rounded-full bg-primary-300/20 blur-2xl"
+        initial={{ scale: 0, opacity: 0, y: -60 }}
+        whileInView={{ 
+          scale: [1, 1.5, 1],
+          opacity: [0.2, 0.45, 0.2],
+          y: [-60, 10, -60],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.2,
+        }}
+        style={{
+          top: "55%",
+          [position === "right" ? "right" : "left"]: "15%",
+        }}
+      />
+      <motion.div
+        className="absolute w-40 h-40 rounded-full bg-primary-400/15 blur-xl"
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ 
+          scale: [1, 1.6, 1],
+          opacity: [0.15, 0.4, 0.15],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2.5,
+        }}
+        style={{
+          top: "35%",
+          [position === "right" ? "right" : "left"]: "25%",
+        }}
+      />
+      
+      {/* Animated geometric shapes */}
+      <motion.div
+        className="absolute"
+        initial={{ opacity: 0, y: 30, scale: 0 }}
+        whileInView={{ 
+          opacity: [0.4, 0.7, 0.4],
+          y: [30, -10, 30],
+          rotate: [0, 180, 360],
+          scale: [1, 1.2, 1],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{
+          top: "8%",
+          [position === "right" ? "right" : "left"]: "12%",
+        }}
+      >
+        <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+          <circle cx="25" cy="25" r="10" stroke="currentColor" strokeWidth="2.5" className="text-primary-400" fill="none" />
+          <circle cx="25" cy="25" r="4" fill="currentColor" className="text-primary-500" />
+          <circle cx="25" cy="25" r="1.5" fill="currentColor" className="text-white" />
+        </svg>
+      </motion.div>
+      
+      <motion.div
+        className="absolute"
+        initial={{ opacity: 0, x: position === "right" ? -30 : 30, scale: 0 }}
+        whileInView={{ 
+          opacity: [0.3, 0.6, 0.3],
+          x: position === "right" ? [-30, 10, -30] : [30, -10, 30],
+          rotate: [0, -120, -240],
+          scale: [1, 1.3, 1],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.8,
+        }}
+        style={{
+          top: "65%",
+          [position === "right" ? "right" : "left"]: "20%",
+        }}
+      >
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path
+            d="M20 8 L32 20 L20 32 L8 20 Z"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            fill="none"
+            className="text-primary-300"
+          />
+          <circle cx="20" cy="20" r="3" fill="currentColor" className="text-primary-400" />
+        </svg>
+      </motion.div>
+
+      {/* Wave-like lines */}
+      <motion.svg
+        className="absolute"
+        width="120"
+        height="80"
+        viewBox="0 0 120 80"
+        initial={{ opacity: 0 }}
+        whileInView={{ 
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{
+          top: "75%",
+          [position === "right" ? "right" : "left"]: "10%",
+        }}
+      >
+        <motion.path
+          d="M10 40 Q30 20, 50 40 T90 40"
+          stroke="currentColor"
+          strokeWidth="2"
+          fill="none"
+          className="text-primary-300"
+          animate={{
+            pathLength: [0, 1, 0],
+            d: [
+              "M10 40 Q30 20, 50 40 T90 40",
+              "M10 40 Q30 30, 50 40 T90 40",
+              "M10 40 Q30 20, 50 40 T90 40",
+            ],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.svg>
+
+      {/* Small floating dots */}
+      <motion.div
+        className="absolute w-3 h-3 rounded-full bg-primary-400/40"
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ 
+          opacity: [0.3, 0.7, 0.3],
+          scale: [1, 1.5, 1],
+          y: [0, -20, 0],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
+        style={{
+          top: "25%",
+          [position === "right" ? "right" : "left"]: "35%",
+        }}
+      />
+      <motion.div
+        className="absolute w-2 h-2 rounded-full bg-primary-500/50"
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ 
+          opacity: [0.4, 0.8, 0.4],
+          scale: [1, 1.8, 1],
+          y: [0, 25, 0],
+        }}
+        viewport={{ once: false, margin: "-100px" }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+        style={{
+          top: "80%",
+          [position === "right" ? "right" : "left"]: "40%",
+        }}
+      />
+    </div>
+  );
+};
+
 // Animated Doodle Component
 const AnimatedDoodle = () => {
   return (
@@ -217,6 +861,23 @@ const staggerContainer = {
   }
 };
 
+const slideInFromLeft = {
+  hidden: { 
+    opacity: 0, 
+    x: -50,
+    scale: 0.9
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { 
+      duration: 0.6, 
+      ease: "easeOut" 
+    }
+  }
+};
+
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // const [formStatus, setFormStatus] = useState({ loading: false, success: false, error: false });
@@ -314,12 +975,15 @@ function App() {
       </div>
       <header className="sticky top-0 z-30 border-b border-primary-200/50 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <button
+          <motion.button
             onClick={() => scrollTo("hero")}
-            className="text-sm font-semibold tracking-wide text-primary-500"
+            className="text-sm font-semibold tracking-wide text-primary-500 flex items-center"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Isra Khan
-          </button>
+            <AnimatedMobileHeader />
+          </motion.button>
           <nav className="hidden gap-6 text-sm text-slate-700 md:flex">
             {sections.map((s) => (
               <button
@@ -391,12 +1055,13 @@ function App() {
         {/* Hero / About Me combined, like mhmz.dev */}
         <motion.section
           id="hero"
-          className="mb-20 grid gap-10 md:grid-cols-[1.2fr,1fr] md:items-center"
+          className="mb-20 grid gap-10 md:grid-cols-[1.2fr,1fr] md:items-center relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
+          <SectionDecorations position="right" />
           <motion.div className="space-y-6 relative" variants={fadeInUp}>
             <AnimatedDoodle />
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-500">
@@ -466,17 +1131,18 @@ function App() {
         {/* About with a single portrait on the left */}
         <motion.section
           id="about"
-          className="mb-16"
+          className="mb-16 relative overflow-visible"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="left" />
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="About Me" eyebrow="Who I am" />
           </motion.div>
           <motion.div 
-            className="glass-panel mt-6 grid gap-8 rounded-3xl p-6 md:grid-cols-[1.05fr,1.4fr]"
+            className="glass-panel mt-6 grid gap-8 rounded-3xl p-6 md:grid-cols-[1.05fr,1.4fr] relative z-10"
             variants={staggerContainer}
           >
             {/* Left: single portrait */}
@@ -523,20 +1189,27 @@ function App() {
         {/* Tech Stack, inspired by mhmz.dev layout */}
         <motion.section
           id="tech"
-          className="mb-16"
+          className="mb-16 relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="right" />
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="Tech Stack" eyebrow="What I work with" />
             <p className="mt-3 max-w-2xl text-sm text-slate-600">
               I like to learn new tools quickly, then prove that knowledge by building real things.
               Flutter is my main focus, supported by a web, backend, and Firebase toolkit.
             </p>
           </motion.div>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div 
+            className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <SkillCard
               title="Languages"
               items={["Dart", "Python", "Java"]}
@@ -552,27 +1225,34 @@ function App() {
               items={["Firebase", "Git", "GitHub", "Python server-side basics"]}
               highlight="Comfortable with Firebase, auth, and basic backend workflows."
             />
-          </div>
+          </motion.div>
         </motion.section>
 
         {/* Projects */}
         {/* Projects */}
         <motion.section
           id="projects"
-          className="mb-16"
+          className="mb-16 relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="left" />
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="Projects" eyebrow="Stuff I loved working with" />
             <p className="mt-3 max-w-2xl text-sm text-slate-600">
               A few Flutter projects that capture how I think about real-world constraints, offline
               behavior, and user experience.
             </p>
           </motion.div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div 
+            className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <ProjectCard
               category="Product"
               title="Hotel Operations Desktop App"
@@ -592,7 +1272,7 @@ function App() {
               subtitle="Connect promoters and fighters around upcoming fighting events."
               tags={["App", "Flutter"]}
             />
-          </div>
+          </motion.div>
           <motion.div className="mt-8 flex justify-center" variants={fadeInUp}>
             <button className="text-xs font-semibold text-primary-500 underline-offset-4 hover:text-primary-600 hover:underline">
               See More
@@ -604,16 +1284,26 @@ function App() {
         {/* Experience */}
         <motion.section
           id="experience"
-          className="mb-16"
+          className="mb-16 relative overflow-visible"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="right" />
+          <div className="absolute right-0 top-8 pointer-events-none z-20 hidden xl:block" style={{ right: "calc(-180px - 2rem)" }}>
+            <SeaGreenLaptop />
+          </div>
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="Experience" eyebrow="Where I've been" />
           </motion.div>
-          <div className="mt-6 space-y-4">
+          <motion.div 
+            className="mt-6 space-y-4 relative z-10"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <ExperienceCard
               role="Flutter Developer"
               company="Emetrotel"
@@ -653,27 +1343,40 @@ function App() {
                 "Collaborated with team members to test, debug, and optimize applications for production readiness.",
               ]}
             />
-          </div>
+          </motion.div>
         </motion.section>
 
         {/* Education */}
         {/* Education */}
         <motion.section
           id="education"
-          className="mb-16"
+          className="mb-16 relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="left" />
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="Education & Certifications" eyebrow="How I learned" />
           </motion.div>
           <motion.div 
             className="mt-6 space-y-4"
-            variants={fadeInUp}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
           >
-            <div className="glass-panel rounded-3xl p-6 text-sm text-slate-700">
+            <motion.div 
+              className="glass-panel rounded-3xl p-6 text-sm text-slate-700"
+              variants={slideInFromLeft}
+              whileHover={{ 
+                scale: 1.05,
+                y: -5,
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <div>
                   <h3 className="text-sm font-semibold text-slate-900">Bachelor of Computer Science</h3>
@@ -686,7 +1389,7 @@ function App() {
               <p className="mt-2 text-xs text-slate-600">
                 CGPA: 3.3 / 4.0
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.section>
 
@@ -711,18 +1414,28 @@ function App() {
         {/* Blog */}
         <motion.section
           id="blog"
-          className="mb-16"
+          className="mb-16 relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="right" />
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="Writing & Notes" eyebrow="Blog" />
           </motion.div>
           <motion.div 
-            className="mt-6 glass-panel rounded-3xl p-6 text-sm text-slate-700"
-            variants={fadeInUp}
+            className="mt-6 glass-panel rounded-3xl p-6 text-sm text-slate-700 relative z-10"
+            variants={slideInFromLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ 
+              scale: 1.05,
+              y: -5,
+              transition: { duration: 0.3 }
+            }}
+            whileTap={{ scale: 0.98 }}
           >
             <p>
               I plan to share short write-ups about building Flutter apps, offline-first design,
@@ -736,13 +1449,14 @@ function App() {
         {/* Contact */}
         <motion.section
           id="contact"
-          className="mb-10"
+          className="mb-10 relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
+          <SectionDecorations position="left" />
+          <motion.div variants={fadeInUp} className="relative z-10">
             <SectionHeader title="Let's Build Something" eyebrow="Contact" />
           </motion.div>
           <motion.div 
@@ -796,10 +1510,22 @@ function App() {
               </form>
             </div>
             */}
-            <div className="space-y-4 text-sm text-slate-700">
+            <motion.div 
+              className="space-y-4 text-sm text-slate-700"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
               <motion.div 
                 className="glass-panel rounded-3xl p-5"
-                variants={fadeInUp}
+                variants={slideInFromLeft}
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -5,
+                  transition: { duration: 0.3 }
+                }}
+                whileTap={{ scale: 0.98 }}
               >
                 <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
                   Direct Contact
@@ -827,7 +1553,13 @@ function App() {
               </motion.div>
               <motion.div 
                 className="glass-panel rounded-3xl p-5"
-                variants={fadeInUp}
+                variants={slideInFromLeft}
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -5,
+                  transition: { duration: 0.3 }
+                }}
+                whileTap={{ scale: 0.98 }}
               >
                 <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
                   Links
@@ -861,12 +1593,12 @@ function App() {
               </motion.div>
               <motion.p 
                 className="text-xs text-slate-500"
-                variants={fadeInUp}
+                variants={slideInFromLeft}
               >
                 Prefer async communication? Send me an email with a bit about your project, and
                 I&apos;ll reply with ideas, next steps, and timelines.
               </motion.p>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.section>
       </main>
@@ -894,8 +1626,14 @@ function SectionHeader({ eyebrow, title }) {
 function SkillCard({ title, items, highlight }) {
   return (
     <motion.div
-      className="glass-panel flex h-full flex-col rounded-3xl p-5 text-sm transition-transform duration-300 hover:-translate-y-1"
-      variants={fadeInUp}
+      className="glass-panel flex h-full flex-col rounded-3xl p-5 text-sm"
+      variants={slideInFromLeft}
+      whileHover={{ 
+        scale: 1.05,
+        y: -5,
+        transition: { duration: 0.3 }
+      }}
+      whileTap={{ scale: 0.98 }}
     >
       <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
       <ul className="mt-3 space-y-1 text-slate-700">
@@ -946,8 +1684,14 @@ function ProjectCard({ category, title, subtitle, tags, link }) {
         href={link}
         target="_blank"
         rel="noreferrer"
-        className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
-        variants={fadeInUp}
+        className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl cursor-pointer"
+        variants={slideInFromLeft}
+        whileHover={{ 
+          scale: 1.05,
+          y: -5,
+          transition: { duration: 0.3 }
+        }}
+        whileTap={{ scale: 0.98 }}
       >
         {cardContent}
       </motion.a>
@@ -956,8 +1700,14 @@ function ProjectCard({ category, title, subtitle, tags, link }) {
 
   return (
     <motion.div
-      className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl transition-transform duration-300 hover:-translate-y-1"
-      variants={fadeInUp}
+      className="glass-panel flex h-full flex-col overflow-hidden rounded-3xl"
+      variants={slideInFromLeft}
+      whileHover={{ 
+        scale: 1.05,
+        y: -5,
+        transition: { duration: 0.3 }
+      }}
+      whileTap={{ scale: 0.98 }}
     >
       {cardContent}
     </motion.div>
@@ -967,8 +1717,14 @@ function ProjectCard({ category, title, subtitle, tags, link }) {
 function ExperienceCard({ role, company, location, period, description, bullets }) {
   return (
     <motion.div
-      className="glass-panel rounded-3xl p-5 text-sm text-slate-700 transition-transform duration-300 hover:-translate-y-1"
-      variants={fadeInUp}
+      className="glass-panel rounded-3xl p-5 text-sm text-slate-700"
+      variants={slideInFromLeft}
+      whileHover={{ 
+        scale: 1.05,
+        y: -5,
+        transition: { duration: 0.3 }
+      }}
+      whileTap={{ scale: 0.98 }}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
