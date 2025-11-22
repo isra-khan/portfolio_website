@@ -9,16 +9,17 @@ body,
 }
 
 body {
-  @apply bg-slate-950 text-slate-100 antialiased font-sans;
+  @apply bg-white text-slate-900 antialiased font-sans;
 }
 
 .gradient-bg {
-  background: radial-gradient(circle at top left, rgba(148, 27, 255, 0.5), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(88, 28, 135, 0.5), transparent 55%);
+  background: radial-gradient(circle at top left, rgba(32, 178, 170, 0.15), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(46, 139, 87, 0.15), transparent 55%),
+    linear-gradient(to bottom, #ffffff, #f8f8f8);
 }
 
 .glass-panel {
-  @apply bg-slate-900/70 backdrop-blur border border-slate-800/80 shadow-xl;
+  @apply bg-white/80 backdrop-blur border border-primary-200/50 shadow-xl;
 }
 
 @keyframes float-slow {
