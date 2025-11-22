@@ -1,6 +1,185 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
+// Animated Doodle Component
+const AnimatedDoodle = () => {
+  return (
+    <div className="absolute -right-8 -top-8 hidden lg:block pointer-events-none opacity-50">
+      <svg
+        width="220"
+        height="220"
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="animate-float-gentle"
+      >
+        {/* Floating code brackets */}
+        <motion.g
+          animate={{
+            y: [0, -12, 0],
+            rotate: [0, 8, 0],
+          }}
+          transition={{
+            duration: 3.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <path
+            d="M35 55 L25 80 L35 105"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-primary-400"
+          />
+          <path
+            d="M165 55 L175 80 L165 105"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-primary-400"
+          />
+        </motion.g>
+
+        {/* Mobile device doodle */}
+        <motion.g
+          animate={{
+            y: [0, 10, 0],
+            rotate: [0, -4, 0],
+          }}
+          transition={{
+            duration: 4.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5,
+          }}
+        >
+          <rect
+            x="70"
+            y="50"
+            width="60"
+            height="100"
+            rx="10"
+            stroke="currentColor"
+            strokeWidth="3"
+            fill="none"
+            className="text-primary-500"
+          />
+          <rect
+            x="75"
+            y="60"
+            width="50"
+            height="70"
+            rx="5"
+            fill="currentColor"
+            className="text-primary-100"
+            opacity="0.6"
+          />
+          <circle cx="100" cy="140" r="5" fill="currentColor" className="text-primary-500" />
+        </motion.g>
+
+        {/* Floating dots */}
+        <motion.circle
+          cx="45"
+          cy="25"
+          r="5"
+          fill="currentColor"
+          className="text-primary-300"
+          animate={{
+            y: [0, -18, 0],
+            opacity: [0.4, 0.9, 0.4],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 2.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.circle
+          cx="155"
+          cy="175"
+          r="6"
+          fill="currentColor"
+          className="text-primary-400"
+          animate={{
+            y: [0, 15, 0],
+            opacity: [0.5, 1, 0.5],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 3.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.2,
+          }}
+        />
+
+        {/* Curved line decoration */}
+        <motion.path
+          d="M15 115 Q45 95, 75 115 T135 115"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+          className="text-primary-300"
+          animate={{
+            pathLength: [0, 1, 0],
+            opacity: [0.3, 0.8, 0.3],
+          }}
+          transition={{
+            duration: 4.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Rotating star/sparkle */}
+        <motion.g
+          transform="translate(185, 35)"
+          animate={{
+            rotate: [0, 360],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          <path
+            d="M0 -8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2 Z"
+            fill="currentColor"
+            className="text-primary-400"
+            opacity="0.7"
+          />
+        </motion.g>
+
+        {/* Small decorative circles */}
+        <motion.circle
+          cx="25"
+          cy="170"
+          r="3"
+          fill="currentColor"
+          className="text-primary-300"
+          animate={{
+            opacity: [0.3, 0.7, 0.3],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.8,
+          }}
+        />
+      </svg>
+    </div>
+  );
+};
+
 const sections = [
   { id: "hero", label: "About" },
   { id: "tech", label: "Tech" },
@@ -87,7 +266,52 @@ function App() {
   */
 
   return (
-    <div className="min-h-screen gradient-bg">
+    <div className="min-h-screen gradient-bg relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <motion.div
+          className="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary-200/20 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+            x: [0, 30, 0],
+            y: [0, 20, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-40 right-20 w-40 h-40 rounded-full bg-primary-300/15 blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2],
+            x: [0, -25, 0],
+            y: [0, -15, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-primary-400/10 blur-2xl"
+          animate={{
+            scale: [1, 1.4, 1],
+            opacity: [0.2, 0.35, 0.2],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
+      </div>
       <header className="sticky top-0 z-30 border-b border-primary-200/50 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <button
@@ -162,7 +386,7 @@ function App() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 pb-16 pt-10 md:pt-16">
+      <main className="mx-auto max-w-6xl px-4 pb-16 pt-10 md:pt-16 relative z-10">
         {/* Hero / About Me combined, like mhmz.dev */}
         {/* Hero / About Me combined, like mhmz.dev */}
         <motion.section
@@ -173,7 +397,8 @@ function App() {
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div className="space-y-6" variants={fadeInUp}>
+          <motion.div className="space-y-6 relative" variants={fadeInUp}>
+            <AnimatedDoodle />
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-500">
               Flutter Developer · Pakistan
             </p>
