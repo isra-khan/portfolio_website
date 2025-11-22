@@ -1247,7 +1247,7 @@ function App() {
             </p>
           </motion.div>
           <motion.div 
-            className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10"
+            className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10 items-stretch"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -1255,22 +1255,24 @@ function App() {
           >
             <ProjectCard
               category="Product"
-              title="Hotel Operations Desktop App"
-              subtitle="Desktop app for hotel operations used across multiple client sites."
-              tags={["App", "Desktop", "Flutter"]}
-              link="https://www.emetrotel.com/software-downloads/"
+              title="Hospitality – Hotel Management App"
+              subtitle="App for small hotels to track check-in/checkout and handle hotel operations. Streamlines daily hotel management tasks."
+              tags={["App", "Flutter", "Hotel Management"]}
+              image={new URL("../hospitality.png", import.meta.url).href}
             />
             <ProjectCard
               category="Product"
-              title="Gig App – Task & Earnings Tracker"
-              subtitle="Track gigs, tasks, and earnings with a simple Flutter workflow."
-              tags={["App", "Flutter", "Firebase"]}
+              title="ACL Excavation – Truck Tracking App"
+              subtitle="Mobile app for tracking trucks on-site, offload status, and timings. Used for managing excavation fleet operations."
+              tags={["App", "Flutter", "Mobile"]}
+              image={new URL("../acl-excavation.png", import.meta.url).href}
             />
             <ProjectCard
               category="Product"
               title="Cage – Fighting Events Platform"
               subtitle="Connect promoters and fighters around upcoming fighting events."
               tags={["App", "Flutter"]}
+              image={new URL("../cage_connect.png", import.meta.url).href}
             />
           </motion.div>
           <motion.div className="mt-8 flex justify-center" variants={fadeInUp}>
@@ -1646,7 +1648,7 @@ function SkillCard({ title, items, highlight }) {
   );
 }
 
-function ProjectCard({ category, title, subtitle, tags, link }) {
+function ProjectCard({ category, title, subtitle, tags, link, image }) {
   const cardContent = (
     <>
       <div className="flex items-center justify-between px-4 pt-3">
@@ -1654,10 +1656,20 @@ function ProjectCard({ category, title, subtitle, tags, link }) {
           {category}
         </span>
       </div>
-      <div className="mt-3 h-32 bg-gradient-to-br from-primary-100 via-primary-50 to-primary-200/70 px-4 py-3 text-xs text-slate-800">
-        <div className="flex h-full items-center justify-center text-center opacity-80">
-          <span className="max-w-[90%]">{title}</span>
-        </div>
+      <div className="mt-3 h-60 overflow-hidden">
+        {image ? (
+          <img
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="h-full bg-gradient-to-br from-primary-100 via-primary-50 to-primary-200/70 px-4 py-3 text-xs text-slate-800">
+            <div className="flex h-full items-center justify-center text-center opacity-80">
+              <span className="max-w-[90%]">{title}</span>
+            </div>
+          </div>
+        )}
       </div>
       <div className="flex flex-1 flex-col justify-between px-4 pb-4 pt-3 text-sm text-slate-700">
         <div>
@@ -1692,6 +1704,7 @@ function ProjectCard({ category, title, subtitle, tags, link }) {
           transition: { duration: 0.3 }
         }}
         whileTap={{ scale: 0.98 }}
+        style={{ minHeight: '485px' }}
       >
         {cardContent}
       </motion.a>
@@ -1708,6 +1721,7 @@ function ProjectCard({ category, title, subtitle, tags, link }) {
         transition: { duration: 0.3 }
       }}
       whileTap={{ scale: 0.98 }}
+      style={{ minHeight: '420px' }}
     >
       {cardContent}
     </motion.div>
