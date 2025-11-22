@@ -1255,9 +1255,9 @@ function App() {
           >
             <ProjectCard
               category="Product"
-              title="Hospitality – Hotel Management App"
-              subtitle="App for small hotels to track check-in/checkout and handle hotel operations. Streamlines daily hotel management tasks."
-              tags={["App", "Flutter", "Hotel Management"]}
+              title="Hospitality – Hotel Management Desktop App"
+              subtitle="Desktop app for small hotels to track check-in/checkout and handle hotel operations. Streamlines daily hotel management tasks."
+              tags={["App", "Desktop", "Flutter"]}
               image={new URL("../hospitality.png", import.meta.url).href}
             />
             <ProjectCard
