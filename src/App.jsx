@@ -1373,7 +1373,7 @@ function App() {
               role="Flutter Developer"
               company="Emetrotel"
               location="Remote | USA"
-              period="Mar 2023 – May 2025"
+              period="Mar 2024 – May 2025"
               description="Worked on production-grade Flutter applications used by hotel clients, focusing on performance, reliability, and integrations."
               bullets={[
                 "Developed Flutter desktop application for hotel operations used across multiple client sites.",
