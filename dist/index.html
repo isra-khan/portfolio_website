@@ -23,10 +23,20 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-C6KCb2BF.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-dKN4ZlOO.css">
+    <script>
+      // Apply dark mode immediately before React loads to prevent flash
+      (function() {
+        const saved = localStorage.getItem('darkMode');
+        const isDark = saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-jSZtsvlA.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bb9htEFt.css">
   </head>
-  <body class="bg-slate-950 text-slate-100">
+  <body>
     <div id="root"></div>
   </body>
 </html>

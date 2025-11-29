@@ -880,7 +880,44 @@ const slideInFromLeft = {
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check if dark class is already on html element (from inline script)
+    if (typeof document !== 'undefined') {
+      const hasDarkClass = document.documentElement.classList.contains('dark');
+      if (hasDarkClass) {
+        // Sync localStorage with the class
+        localStorage.setItem('darkMode', 'true');
+        return true;
+      }
+      // Check localStorage first, then system preference
+      const saved = localStorage.getItem('darkMode');
+      if (saved !== null) return saved === 'true';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
   // const [formStatus, setFormStatus] = useState({ loading: false, success: false, error: false });
+
+  // Toggle dark mode and save to localStorage
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('darkMode', newMode.toString());
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  // Apply dark mode class on mount and when isDarkMode changes
+  React.useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
@@ -973,7 +1010,7 @@ function App() {
           }}
         />
       </div>
-      <header className="sticky top-0 z-30 border-b border-primary-200/50 bg-white/90 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-primary-200/50 bg-white/90 backdrop-blur dark:border-primary-800/50 dark:bg-slate-900/90">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <motion.button
             onClick={() => scrollTo("hero")}
@@ -984,18 +1021,35 @@ function App() {
             Isra Khan
             <AnimatedMobileHeader />
           </motion.button>
-          <nav className="hidden gap-6 text-sm text-slate-700 md:flex">
+          <nav className="hidden gap-6 text-sm text-slate-700 dark:text-slate-300 md:flex">
             {sections.map((s) => (
               <button
                 key={s.id}
                 onClick={() => scrollTo(s.id)}
-                className="transition hover:text-primary-500"
+                className="transition hover:text-primary-500 dark:hover:text-primary-400"
               >
                 {s.label}
               </button>
             ))}
           </nav>
           <div className="flex items-center gap-3">
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleDarkMode}
+              className="rounded-full p-2.5 text-slate-700 dark:text-slate-300 transition-all hover:text-primary-500 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30"
+              aria-label="Toggle dark mode"
+              title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? (
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
+            </button>
             <button
               onClick={() => scrollTo("contact")}
               className="hidden rounded-full bg-primary-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-primary-400 sm:block"
@@ -1005,7 +1059,7 @@ function App() {
             {/* Hamburger button for mobile */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex flex-col gap-1.5 p-2 text-slate-700 transition hover:text-primary-500 md:hidden"
+              className="flex flex-col gap-1.5 p-2 text-slate-700 dark:text-slate-300 transition hover:text-primary-500 dark:hover:text-primary-400 md:hidden"
               aria-label="Toggle menu"
             >
               <span
@@ -1025,7 +1079,7 @@ function App() {
         </div>
         {/* Mobile menu */}
         <div
-          className={`absolute left-0 right-0 top-full z-20 border-b border-primary-200/50 bg-white/95 backdrop-blur transition-all duration-300 md:hidden ${isMobileMenuOpen
+          className={`absolute left-0 right-0 top-full z-20 border-b border-primary-200/50 bg-white/95 backdrop-blur dark:border-primary-800/50 dark:bg-slate-900/95 transition-all duration-300 md:hidden ${isMobileMenuOpen
             ? "max-h-96 opacity-100"
             : "max-h-0 overflow-hidden opacity-0"
             }`}
@@ -1035,7 +1089,7 @@ function App() {
               <button
                 key={s.id}
                 onClick={() => scrollTo(s.id)}
-                className="py-3 text-left text-sm text-slate-700 transition hover:text-primary-500"
+                className="py-3 text-left text-sm text-slate-700 dark:text-slate-300 transition hover:text-primary-500 dark:hover:text-primary-400"
               >
                 {s.label}
               </button>
@@ -1067,12 +1121,12 @@ function App() {
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-500">
               Flutter Developer · Pakistan
             </p>
-            <h1 className="text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl md:text-5xl">
+            <h1 className="text-3xl font-semibold leading-tight text-slate-900 dark:text-white sm:text-4xl md:text-5xl">
               Hello! I&apos;m <span className="text-primary-500">Isra</span>
               <br />
               A Flutter developer building fast, reliable apps.
             </h1>
-            <p className="max-w-xl text-sm text-slate-600 md:text-base">
+            <p className="max-w-xl text-sm text-slate-600 dark:text-slate-400 md:text-base">
               Building fast, reliable apps with Flutter — from mobile to desktop. I&apos;ve worked
               on hotel operations, task & earnings tracking, and events platforms, always focusing
               on smooth UX, offline-first workflows, and solid integrations.
@@ -1086,11 +1140,11 @@ function App() {
               </button>
               <button
                 onClick={() => scrollTo("projects")}
-                className="rounded-full border border-primary-300 px-5 py-2 text-sm font-medium text-primary-600 transition hover:-translate-y-0.5 hover:border-primary-500 hover:text-primary-500"
+                className="rounded-full border border-primary-300 dark:border-primary-700 px-5 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 transition hover:-translate-y-0.5 hover:border-primary-500 hover:text-primary-500 dark:hover:border-primary-400 dark:hover:text-primary-300"
               >
                 View Projects
               </button>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 Available for remote Flutter roles & freelance.
               </span>
             </div>
@@ -1099,27 +1153,27 @@ function App() {
             <div className="glass-panel relative overflow-hidden rounded-3xl p-6 animate-float-slow">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0,_rgba(32,178,170,0.15),transparent_60%),radial-gradient(circle_at_80%_100%,rgba(46,139,87,0.15),transparent_55%)]" />
               <div className="relative space-y-4">
-                <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-500">
+                <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
                   Flutter Developer
                 </p>
-                <h2 className="text-lg font-semibold text-slate-900">Flutter-first Developer</h2>
-                <ul className="space-y-2 text-xs text-slate-700">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Flutter-first Developer</h2>
+                <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
                   <li>• Production experience across mobile and desktop.</li>
                   <li>• Focus on performance, offline-first UX, and maintainable code.</li>
                   <li>• Comfortable with Firebase, local storage, and integration work.</li>
                 </ul>
                 <div className="mt-4 grid grid-cols-3 gap-3 text-xs">
-                  <div className="rounded-2xl bg-primary-50/80 p-3">
-                    <p className="text-[10px] uppercase text-slate-600">Core Stack</p>
-                    <p className="mt-1 font-medium text-slate-900">Flutter · Dart</p>
+                  <div className="rounded-2xl bg-primary-50/80 dark:bg-primary-900/30 p-3">
+                    <p className="text-[10px] uppercase text-slate-600 dark:text-slate-400">Core Stack</p>
+                    <p className="mt-1 font-medium text-slate-900 dark:text-white">Flutter · Dart</p>
                   </div>
-                  <div className="rounded-2xl bg-primary-50/80 p-3">
-                    <p className="text-[10px] uppercase text-slate-600">Cloud & Data</p>
-                    <p className="mt-1 font-medium text-slate-900">Firebase</p>
+                  <div className="rounded-2xl bg-primary-50/80 dark:bg-primary-900/30 p-3">
+                    <p className="text-[10px] uppercase text-slate-600 dark:text-slate-400">Cloud & Data</p>
+                    <p className="mt-1 font-medium text-slate-900 dark:text-white">Firebase</p>
                   </div>
-                  <div className="rounded-2xl bg-primary-50/80 p-3">
-                    <p className="text-[10px] uppercase text-slate-600">Location</p>
-                    <p className="mt-1 font-medium text-slate-900">Pakistan · Remote</p>
+                  <div className="rounded-2xl bg-primary-50/80 dark:bg-primary-900/30 p-3">
+                    <p className="text-[10px] uppercase text-slate-600 dark:text-slate-400">Location</p>
+                    <p className="mt-1 font-medium text-slate-900 dark:text-white">Pakistan · Remote</p>
                   </div>
                 </div>
               </div>
@@ -1150,18 +1204,27 @@ function App() {
               className="flex items-center justify-center"
               variants={fadeInUp}
             >
-              <div className="relative w-full max-w-xs overflow-hidden rounded-3xl border border-primary-500/60 bg-white shadow-xl shadow-primary-500/20 aspect-[3/4]">
+              <div className="relative w-full max-w-sm overflow-hidden rounded-3xl border border-primary-500/60 bg-primary-50 dark:bg-primary-900/50 shadow-xl shadow-primary-500/20">
                 <img
                   src={new URL("../isra-profile.png", import.meta.url).href}
                   alt="Isra Khan"
-                  className="h-full w-full object-cover object-top"
+                  className="w-full h-auto"
+                  style={{ 
+                    display: 'block',
+                    maxWidth: '100%',
+                    height: 'auto',
+                    minHeight: '400px',
+                    objectFit: 'cover',
+                    objectPosition: 'top'
+                  }}
+                  loading="lazy"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent" />
               </div>
             </motion.div>
             {/* Right: text */}
             <motion.div 
-              className="flex flex-col justify-center space-y-4 text-sm text-slate-700 md:text-[15px]"
+              className="flex flex-col justify-center space-y-4 text-sm text-slate-700 dark:text-slate-300 md:text-[15px]"
               variants={fadeInUp}
             >
               <p>
@@ -1276,7 +1339,7 @@ function App() {
             />
           </motion.div>
           <motion.div className="mt-8 flex justify-center" variants={fadeInUp}>
-            <button className="text-xs font-semibold text-primary-500 underline-offset-4 hover:text-primary-600 hover:underline">
+            <button className="text-xs font-semibold text-primary-500 dark:text-primary-400 underline-offset-4 hover:text-primary-600 dark:hover:text-primary-300 hover:underline">
               See More
             </button>
           </motion.div>
@@ -1370,7 +1433,7 @@ function App() {
             viewport={{ once: true, margin: "-50px" }}
           >
             <motion.div 
-              className="glass-panel rounded-3xl p-6 text-sm text-slate-700"
+              className="glass-panel rounded-3xl p-6 text-sm text-slate-700 dark:text-slate-300"
               variants={slideInFromLeft}
               whileHover={{ 
                 scale: 1.05,
@@ -1381,14 +1444,14 @@ function App() {
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-900">Bachelor of Computer Science</h3>
-                  <p className="text-xs text-slate-600">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Bachelor of Computer Science</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400">
                     University of Sindh
                   </p>
                 </div>
-                <p className="text-xs text-slate-500">2017 – 2021</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">2017 – 2021</p>
               </div>
-              <p className="mt-2 text-xs text-slate-600">
+              <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
                 CGPA: 3.3 / 4.0
               </p>
             </motion.div>
@@ -1427,7 +1490,7 @@ function App() {
             <SectionHeader title="Writing & Notes" eyebrow="Blog" />
           </motion.div>
           <motion.div 
-            className="mt-6 glass-panel rounded-3xl p-6 text-sm text-slate-700 relative z-10"
+            className="mt-6 glass-panel rounded-3xl p-6 text-sm text-slate-700 dark:text-slate-300 relative z-10"
             variants={slideInFromLeft}
             initial="hidden"
             whileInView="visible"
@@ -1512,91 +1575,91 @@ function App() {
               </form>
             </div>
             */}
-            <motion.div 
-              className="space-y-4 text-sm text-slate-700"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-            >
               <motion.div 
-                className="glass-panel rounded-3xl p-5"
-                variants={slideInFromLeft}
-                whileHover={{ 
-                  scale: 1.05,
-                  y: -5,
-                  transition: { duration: 0.3 }
-                }}
-                whileTap={{ scale: 0.98 }}
+                className="space-y-4 text-sm text-slate-700 dark:text-slate-300"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
               >
-                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
-                  Direct Contact
-                </h3>
-                <div className="mt-3 space-y-1.5 text-sm">
-                  <p>
-                    <span className="text-slate-600">Email:</span>{" "}
+                <motion.div 
+                  className="glass-panel rounded-3xl p-5"
+                  variants={slideInFromLeft}
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -5,
+                    transition: { duration: 0.3 }
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
+                    Direct Contact
+                  </h3>
+                  <div className="mt-3 space-y-1.5 text-sm">
+                    <p>
+                      <span className="text-slate-600 dark:text-slate-400">Email:</span>{" "}
+                      <a
+                        href="mailto:israkhan.ik1@gmail.com"
+                        className="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300"
+                      >
+                        israkhan.ik1@gmail.com
+                      </a>
+                    </p>
+                    <p>
+                      <span className="text-slate-600 dark:text-slate-400">Phone:</span>{" "}
+                      <a
+                        href="tel:+923423305814"
+                        className="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300"
+                      >
+                        +92 342 3305814
+                      </a>
+                    </p>
+                  </div>
+                </motion.div>
+                <motion.div 
+                  className="glass-panel rounded-3xl p-5"
+                  variants={slideInFromLeft}
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -5,
+                    transition: { duration: 0.3 }
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
+                    Links
+                  </h3>
+                  <div className="mt-3 flex flex-wrap gap-3 text-xs">
                     <a
-                      href="mailto:israkhan.ik1@gmail.com"
-                      className="text-primary-500 hover:text-primary-600"
+                      href="https://github.com/isra-khan/isra-khan"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-primary-300 dark:border-primary-700 px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:text-primary-500 dark:hover:border-primary-400 dark:hover:text-primary-400"
                     >
-                      israkhan.ik1@gmail.com
+                      GitHub
                     </a>
-                  </p>
-                  <p>
-                    <span className="text-slate-600">Phone:</span>{" "}
                     <a
-                      href="tel:+923423305814"
-                      className="text-primary-500 hover:text-primary-600"
+                      href="https://www.linkedin.com/in/isra-khan1/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-primary-300 dark:border-primary-700 px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:text-primary-500 dark:hover:border-primary-400 dark:hover:text-primary-400"
                     >
-                      +92 342 3305814
+                      LinkedIn
                     </a>
-                  </p>
-                </div>
-              </motion.div>
-              <motion.div 
-                className="glass-panel rounded-3xl p-5"
-                variants={slideInFromLeft}
-                whileHover={{ 
-                  scale: 1.05,
-                  y: -5,
-                  transition: { duration: 0.3 }
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
-                  Links
-                </h3>
-                <div className="mt-3 flex flex-wrap gap-3 text-xs">
-                  <a
-                    href="https://github.com/isra-khan/isra-khan"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-primary-300 px-3 py-1.5 text-slate-700 hover:border-primary-500 hover:text-primary-500"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/isra-khan1/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-primary-300 px-3 py-1.5 text-slate-700 hover:border-primary-500 hover:text-primary-500"
-                  >
-                    LinkedIn
-                  </a>
-                  <a
-                    href="https://docs.google.com/document/d/1lWz6VZQnIR2Yq23M01_0AUgMEvz_R3hPpABEDjQLeJ4/edit?usp=share_link"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-primary-300 px-3 py-1.5 text-slate-700 hover:border-primary-500 hover:text-primary-500"
-                  >
-                    Download Resume
-                  </a>
-                </div>
-              </motion.div>
-              <motion.p 
-                className="text-xs text-slate-500"
-                variants={slideInFromLeft}
-              >
+                    <a
+                      href="https://docs.google.com/document/d/1lWz6VZQnIR2Yq23M01_0AUgMEvz_R3hPpABEDjQLeJ4/edit?usp=share_link"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-primary-300 dark:border-primary-700 px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:text-primary-500 dark:hover:border-primary-400 dark:hover:text-primary-400"
+                    >
+                      Download Resume
+                    </a>
+                  </div>
+                </motion.div>
+                <motion.p 
+                  className="text-xs text-slate-500 dark:text-slate-400"
+                  variants={slideInFromLeft}
+                >
                 Prefer async communication? Send me an email with a bit about your project, and
                 I&apos;ll reply with ideas, next steps, and timelines.
               </motion.p>
@@ -1605,8 +1668,8 @@ function App() {
         </motion.section>
       </main>
 
-      <footer className="border-t border-primary-200/50 bg-white/90">
-        <div className="mx-auto max-w-6xl px-4 py-5 text-center text-xs text-slate-600">
+      <footer className="border-t border-primary-200/50 dark:border-primary-800/50 bg-white/90 dark:bg-slate-900/90">
+        <div className="mx-auto max-w-6xl px-4 py-5 text-center text-xs text-slate-600 dark:text-slate-400">
           <p>© {new Date().getFullYear()} Isra Khan. All rights reserved.</p>
         </div>
       </footer>
@@ -1620,30 +1683,30 @@ function SectionHeader({ eyebrow, title }) {
       <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary-500">
         {eyebrow}
       </p>
-      <h2 className="text-xl font-semibold text-slate-900 md:text-2xl">{title}</h2>
+      <h2 className="text-xl font-semibold text-slate-900 dark:text-white md:text-2xl">{title}</h2>
     </div>
   );
 }
 
 function SkillCard({ title, items, highlight }) {
   return (
-    <motion.div
-      className="glass-panel flex h-full flex-col rounded-3xl p-5 text-sm"
-      variants={slideInFromLeft}
-      whileHover={{ 
-        scale: 1.05,
-        y: -5,
-        transition: { duration: 0.3 }
-      }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
-      <ul className="mt-3 space-y-1 text-slate-700">
-        {items.map((item) => (
-          <li key={item}>• {item}</li>
-        ))}
-      </ul>
-      {highlight && <p className="mt-3 text-xs text-slate-600">{highlight}</p>}
+            <motion.div 
+              className="glass-panel flex h-full flex-col rounded-3xl p-5 text-sm"
+              variants={slideInFromLeft}
+              whileHover={{ 
+                scale: 1.05,
+                y: -5,
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h3>
+              <ul className="mt-3 space-y-1 text-slate-700 dark:text-slate-300">
+                {items.map((item) => (
+                  <li key={item}>• {item}</li>
+                ))}
+              </ul>
+              {highlight && <p className="mt-3 text-xs text-slate-600 dark:text-slate-400">{highlight}</p>}
     </motion.div>
   );
 }
@@ -1664,17 +1727,17 @@ function ProjectCard({ category, title, subtitle, tags, link, image }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="h-full bg-gradient-to-br from-primary-100 via-primary-50 to-primary-200/70 px-4 py-3 text-xs text-slate-800">
+          <div className="h-full bg-gradient-to-br from-primary-100 via-primary-50 to-primary-200/70 dark:from-primary-900/40 dark:via-primary-800/30 dark:to-primary-900/50 px-4 py-3 text-xs text-slate-800 dark:text-slate-200">
             <div className="flex h-full items-center justify-center text-center opacity-80">
               <span className="max-w-[90%]">{title}</span>
             </div>
           </div>
         )}
       </div>
-      <div className="flex flex-1 flex-col justify-between px-4 pb-4 pt-3 text-sm text-slate-700">
+      <div className="flex flex-1 flex-col justify-between px-4 pb-4 pt-3 text-sm text-slate-700 dark:text-slate-300">
         <div>
-          <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
-          <p className="mt-1 text-xs text-slate-600">{subtitle}</p>
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h3>
+          <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{subtitle}</p>
         </div>
         <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
           {tags.map((tag) => (
@@ -1731,7 +1794,7 @@ function ProjectCard({ category, title, subtitle, tags, link, image }) {
 function ExperienceCard({ role, company, location, period, description, bullets }) {
   return (
     <motion.div
-      className="glass-panel rounded-3xl p-5 text-sm text-slate-700"
+      className="glass-panel rounded-3xl p-5 text-sm text-slate-700 dark:text-slate-300"
       variants={slideInFromLeft}
       whileHover={{ 
         scale: 1.05,
@@ -1742,16 +1805,16 @@ function ExperienceCard({ role, company, location, period, description, bullets 
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
-          <h3 className="text-sm font-semibold text-slate-900">{role}</h3>
-          <p className="text-xs text-slate-600">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{role}</h3>
+          <p className="text-xs text-slate-600 dark:text-slate-400">
             {company} · {location}
           </p>
         </div>
-        <p className="text-xs text-slate-500">{period}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{period}</p>
       </div>
       <p className="mt-2">{description}</p>
       {bullets && (
-        <ul className="mt-3 space-y-1.5 text-xs text-slate-600">
+        <ul className="mt-3 space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
           {bullets.map((b) => (
             <li key={b}>• {b}</li>
           ))}
